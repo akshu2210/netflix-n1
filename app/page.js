@@ -1,69 +1,462 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import "./globals.css";
+
+const features = [
+  {
+    number: "01",
+    title: "Cinematic Display",
+    text: "Deep blacks, vivid colors, and ultra-smooth motion make every game feel like a Netflix premiere.",
+  },
+  {
+    number: "02",
+    title: "Game Mode",
+    text: "Instant performance optimization keeps your frame rates high and your gameplay responsive.",
+  },
+  {
+    number: "03",
+    title: "Immersive Audio",
+    text: "Rich spatial sound puts you inside the action with cinematic clarity.",
+  },
+  {
+    number: "04",
+    title: "Advanced Cooling",
+    text: "Intelligent thermal management keeps N-1 running cool during intense sessions.",
+  },
+];
+
+const specs = [
+  ["DISPLAY", '16" OLED / 240Hz'],
+  ["PROCESSOR", "Intel Core Ultra 9"],
+  ["GRAPHICS", "NVIDIA RTX"],
+  ["MEMORY", "32GB DDR5"],
+  ["STORAGE", "2TB SSD"],
+  ["BATTERY", "Up to 12 hours"],
+];
 
 export default function Home() {
+  const [active, setActive] = useState("performance");
+
+  /*
+   * ==============================
+   * NAVIGATION / ACTIVE SECTION
+   * ==============================
+   */
+
+  useEffect(() => {
+    const sectionIds = ["performance", "features", "specs"];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const navbarHeight = 140;
+
+      let currentSection = "performance";
+
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+
+        if (!section) return;
+
+        const sectionTop = section.offsetTop - navbarHeight - 100;
+
+        if (scrollPosition >= sectionTop) {
+          currentSection = id;
+        }
+      });
+
+      setActive(currentSection);
+    };
+
+    // Run once when page loads
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  /*
+   * ==============================
+   * SMOOTH SCROLL
+   * ==============================
+   */
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+
+    if (!section) return;
+
+    // Immediately move the red active line
+    if (
+      id === "performance" ||
+      id === "features" ||
+      id === "specs"
+    ) {
+      setActive(id);
+    }
+
+    const navbar = document.querySelector(".navbar");
+
+    const navbarHeight = navbar
+      ? navbar.offsetHeight
+      : 137;
+
+    const sectionTop =
+      section.getBoundingClientRect().top +
+      window.scrollY -
+      navbarHeight;
+
+    window.scrollTo({
+      top: Math.max(0, sectionTop),
+      behavior: "smooth",
+    });
+  };
+
+  /*
+   * ==============================
+   * BACK TO TOP
+   * ==============================
+   */
+
+  const backToTop = () => {
+    setActive("performance");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.js
-            </code>{" "}
-            file.
+    <main>
+      {/* =========================
+          NAVBAR
+      ========================= */}
+
+      <header className="navbar">
+        {/* LOGO */}
+
+        <div
+          className="logo"
+          onClick={() => scrollToSection("performance")}
+        >
+          NETFLIX
+        </div>
+
+        {/* NAVIGATION */}
+
+        <nav>
+          <button
+            type="button"
+            className={
+              active === "performance" ? "active" : ""
+            }
+            onClick={() =>
+              scrollToSection("performance")
+            }
+          >
+            Performance
+          </button>
+
+          <button
+            type="button"
+            className={
+              active === "features" ? "active" : ""
+            }
+            onClick={() => scrollToSection("features")}
+          >
+            Features
+          </button>
+
+          <button
+            type="button"
+            className={
+              active === "specs" ? "active" : ""
+            }
+            onClick={() => scrollToSection("specs")}
+          >
+            Specs
+          </button>
+        </nav>
+
+        {/* GET N-1 */}
+
+        <button
+          type="button"
+          className="nav-cta"
+          onClick={() => scrollToSection("cta")}
+        >
+          GET N-1
+        </button>
+      </header>
+
+      {/* =========================
+          PERFORMANCE / HERO
+      ========================= */}
+
+      <section
+        id="performance"
+        data-section="performance"
+        className="hero section"
+      >
+        <div className="hero-content">
+          <h1>
+            Don&apos;t
+            <br />
+            Just
+            <br />
+            <span>Watch.</span>
+            <br />
+            Play.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p>
+            Meet N-1. A cinematic gaming laptop engineered
+            for players who want every frame to feel like a
+            premiere.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* LAPTOP */}
+
+        <div className="laptop">
+          <div className="screen">
+            <div className="screen-glow"></div>
+
+            <div className="n-logo">N</div>
+
+            <div className="screen-text">
+              PLAY WITHOUT LIMITS.
+            </div>
+          </div>
+
+          <div className="keyboard">
+            {Array.from({ length: 48 }).map((_, index) => (
+              <span key={index}></span>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* =========================
+          PERFORMANCE STATS
+      ========================= */}
+
+      <section className="performance-stats">
+        <div className="section-heading">
+          <h2>
+            Built for the
+            <br />
+            final boss.
+          </h2>
+
+          <p>
+            Every component of N-1 is engineered to keep
+            your game fast, smooth, and immersive.
+          </p>
+        </div>
+
+        <div className="stats-grid">
+          <Stat
+            number="01"
+            value="240Hz"
+            title="ULTRA-SMOOTH"
+          />
+
+          <Stat
+            number="02"
+            value="RTX"
+            title="NEXT-GEN"
+          />
+
+          <Stat
+            number="03"
+            value="32GB"
+            title="GAMING MEMORY"
+          />
+
+          <Stat
+            number="04"
+            value="2TB"
+            title="SSD STORAGE"
+          />
+        </div>
+      </section>
+
+      {/* =========================
+          FEATURES
+      ========================= */}
+
+      <section
+        id="features"
+        data-section="features"
+        className="features section"
+      >
+        <div className="eyebrow">
+          FEATURES
+        </div>
+
+        <div className="section-heading">
+          <h2>
+            The cinema
+            <br />
+            is yours.
+          </h2>
+
+          <p>
+            N-1 brings the cinematic DNA of Netflix into a
+            machine built for serious players.
+          </p>
+        </div>
+
+        <div className="feature-showcase">
+          <div className="giant-n">
+            N
+          </div>
+
+          <div className="showcase-text">
+            PLAY WITHOUT LIMITS.
+          </div>
+        </div>
+
+        <div className="feature-list">
+          {features.map((feature) => (
+            <article
+              className="feature-item"
+              key={feature.number}
+            >
+              <div className="feature-number">
+                {feature.number}
+              </div>
+
+              <div className="feature-content">
+                <h3>{feature.title}</h3>
+
+                <p>{feature.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================
+          SPECS
+      ========================= */}
+
+      <section
+        id="specs"
+        data-section="specs"
+        className="specs section"
+      >
+        <div className="eyebrow">
+          SPECIFICATIONS
+        </div>
+
+        <div className="section-heading">
+          <h2>
+            More power.
+            <br />
+            Less compromise.
+          </h2>
+
+          <p>
+            Everything you need to play harder, create faster
+            and stay in the game longer.
+          </p>
+        </div>
+
+        <div className="spec-list">
+          {specs.map(([label, value]) => (
+            <div
+              className="spec-row"
+              key={label}
+            >
+              <span>{label}</span>
+
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =========================
+          CTA
+      ========================= */}
+
+      <section
+        id="cta"
+        className="cta section"
+      >
+        <div className="cta-inner">
+          <h2>
+            Ready to
+            <br />
+            press play?
+          </h2>
+
+          <p>
+            Step into a new generation of gaming with the
+            Netflix N-1.
+          </p>
+
+          <button
+            type="button"
+            className="main-cta"
+            onClick={() => scrollToSection("performance")}
+          >
+            Get N-1
+            <span>→</span>
+          </button>
+        </div>
+      </section>
+
+      {/* =========================
+          FLOATING N
+      ========================= */}
+
+      <div className="floating-n">
+        <span>N</span>
+      </div>
+
+      {/* =========================
+          BACK TO TOP
+      ========================= */}
+
+      <button
+        type="button"
+        className="back-top"
+        aria-label="Back to top"
+        onClick={backToTop}
+      >
+        ↑
+      </button>
+    </main>
+  );
+}
+
+/*
+ * ==============================
+ * STAT COMPONENT
+ * ==============================
+ */
+
+function Stat({ number, value, title }) {
+  return (
+    <div className="stat-card">
+      <span className="stat-number">
+        {number}
+      </span>
+
+      <span className="stat-value">
+        {value}
+      </span>
+
+      <h3>{title}</h3>
     </div>
   );
 }
