@@ -27,7 +27,8 @@ button {
 }
 
 button,
-.logo {
+.logo,
+.floating-n {
   cursor: pointer;
 }
 
@@ -125,15 +126,6 @@ main {
   color: #fff;
 }
 
-/*
-   RED ACTIVE LINE
-
-   This is controlled by:
-   active === "performance"
-   active === "features"
-   active === "specs"
-*/
-
 .navbar nav button.active::after {
   content: "";
 
@@ -173,12 +165,14 @@ main {
 
   transition:
     background 0.25s ease,
-    transform 0.25s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .nav-cta:hover {
   background: #ff1823;
   transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(229, 9, 20, 0.2);
 }
 
 /* =========================================================
@@ -277,6 +271,19 @@ main {
   max-width: 700px;
 }
 
+/* PRODUCT LABEL */
+
+.product-label {
+  margin-bottom: 28px;
+
+  color: #888;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 4px;
+}
+
 .hero h1 {
   color: #fff;
 
@@ -303,6 +310,76 @@ main {
   font-size: clamp(19px, 1.7vw, 27px);
 
   line-height: 1.5;
+}
+
+/* HERO PURCHASE */
+
+.hero-purchase {
+  display: flex;
+  align-items: center;
+
+  gap: 28px;
+
+  margin-top: 42px;
+}
+
+.hero-price {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.hero-price span {
+  color: #777;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-price strong {
+  color: #fff;
+
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.hero-buy {
+  min-width: 190px;
+
+  padding: 18px 24px;
+
+  border: none;
+  outline: none;
+
+  background: #e50914;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-buy:hover {
+  background: #ff1823;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 14px 35px rgba(229, 9, 20, 0.25);
+}
+
+.hero-buy span {
+  margin-left: 20px;
 }
 
 /* =========================================================
@@ -374,6 +451,9 @@ main {
   font-weight: 900;
 
   line-height: 1;
+
+  text-shadow:
+    0 0 40px rgba(229, 9, 20, 0.18);
 }
 
 .screen-text {
@@ -466,6 +546,14 @@ main {
   border-right: 1px solid #242424;
 
   background: rgba(10, 10, 10, 0.5);
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.stat-card:hover {
+  background: rgba(229, 9, 20, 0.05);
 }
 
 .stat-card:last-child {
@@ -592,6 +680,14 @@ main {
   padding: 60px 0;
 
   border-top: 1px solid #242424;
+
+  transition:
+    padding-left 0.25s ease,
+    background 0.25s ease;
+}
+
+.feature-item:hover {
+  padding-left: 15px;
 }
 
 .feature-item:last-child {
@@ -662,6 +758,16 @@ main {
   min-height: 125px;
 
   border-bottom: 1px solid #292929;
+
+  transition:
+    background 0.25s ease,
+    padding-left 0.25s ease;
+}
+
+.spec-row:hover {
+  background: rgba(229, 9, 20, 0.025);
+
+  padding-left: 12px;
 }
 
 .spec-row span {
@@ -683,11 +789,11 @@ main {
 }
 
 /* =========================================================
-   CTA
+   CTA / PURCHASE
 ========================================================= */
 
 .cta {
-  min-height: 650px;
+  min-height: 720px;
 
   display: flex;
 
@@ -696,7 +802,7 @@ main {
   background:
     radial-gradient(
       circle at 70% 50%,
-      rgba(120, 0, 0, 0.28),
+      rgba(120, 0, 0, 0.35),
       transparent 45%
     ),
     #090000;
@@ -706,6 +812,16 @@ main {
   width: min(1330px, 88%);
 
   margin: auto;
+}
+
+.cta-eyebrow {
+  width: 100%;
+
+  padding-top: 0;
+
+  margin-bottom: 35px;
+
+  color: #e50914;
 }
 
 .cta h2 {
@@ -721,6 +837,8 @@ main {
 }
 
 .cta p {
+  max-width: 750px;
+
   margin-top: 40px;
 
   color: #ccc;
@@ -730,10 +848,43 @@ main {
   line-height: 1.4;
 }
 
+/* CTA PRICE */
+
+.cta-price {
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  margin-top: 38px;
+}
+
+.cta-price span {
+  color: #888;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+.cta-price strong {
+  color: #fff;
+
+  font-size: 38px;
+
+  font-weight: 900;
+}
+
+/* MAIN CTA */
+
 .main-cta {
   min-width: 330px;
 
-  margin-top: 50px;
+  margin-top: 35px;
 
   padding: 24px 38px;
 
@@ -752,17 +903,31 @@ main {
 
   transition:
     background 0.25s ease,
-    transform 0.25s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .main-cta:hover {
   background: #ff1823;
 
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 18px 45px rgba(229, 9, 20, 0.25);
 }
 
 .main-cta span {
   margin-left: 35px;
+}
+
+.purchase-note {
+  margin-top: 20px;
+
+  color: #666;
+
+  font-size: 14px;
+
+  font-weight: 600;
 }
 
 /* =========================================================
@@ -797,6 +962,16 @@ main {
     0 0 0 5px rgba(0, 0, 0, 0.25);
 
   cursor: pointer;
+
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.floating-n:hover {
+  border-color: #e50914;
+
+  transform: scale(1.08);
 }
 
 .floating-n span {
@@ -969,13 +1144,21 @@ main {
 
     display: block;
 
-    padding: 75px 25px 80px;
+    padding: 65px 25px 80px;
   }
 
   .hero-content {
     width: 100%;
 
     max-width: none;
+  }
+
+  .product-label {
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 22px;
   }
 
   .hero h1 {
@@ -990,6 +1173,24 @@ main {
     margin-top: 40px;
 
     font-size: 18px;
+  }
+
+  .hero-purchase {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 22px;
+
+    margin-top: 35px;
+  }
+
+  .hero-price strong {
+    font-size: 25px;
+  }
+
+  .hero-buy {
+    width: 100%;
   }
 
   .laptop {
@@ -1122,6 +1323,10 @@ main {
     padding: 42px 0;
   }
 
+  .feature-item:hover {
+    padding-left: 0;
+  }
+
   .feature-number {
     font-size: 17px;
   }
@@ -1156,6 +1361,10 @@ main {
     padding: 28px 0;
   }
 
+  .spec-row:hover {
+    padding-left: 0;
+  }
+
   .spec-row span {
     font-size: 14px;
   }
@@ -1167,11 +1376,15 @@ main {
   /* CTA */
 
   .cta {
-    min-height: 550px;
+    min-height: 650px;
   }
 
   .cta-inner {
     width: calc(100% - 50px);
+  }
+
+  .cta-eyebrow {
+    width: 100%;
   }
 
   .cta h2 {
@@ -1186,16 +1399,30 @@ main {
     font-size: 18px;
   }
 
+  .cta-price {
+    margin-top: 30px;
+  }
+
+  .cta-price strong {
+    font-size: 30px;
+  }
+
   .main-cta {
     width: 100%;
 
     min-width: 0;
 
-    margin-top: 40px;
+    margin-top: 35px;
 
     padding: 21px;
 
     font-size: 19px;
+  }
+
+  .purchase-note {
+    font-size: 12px;
+
+    line-height: 1.5;
   }
 
   /* FLOATING */
@@ -1262,6 +1489,10 @@ main {
     letter-spacing: -4px;
   }
 
+  .hero-purchase {
+    width: 100%;
+  }
+
   .section-heading h2 {
     font-size: 48px;
   }
@@ -1313,7 +1544,7 @@ main {
   }
 
   .cta {
-    min-height: 520px;
+    min-height: 560px;
   }
 
   .cta-inner {
@@ -1326,6 +1557,14 @@ main {
 
   .cta p {
     font-size: 17px;
+  }
+
+  .cta-price strong {
+    font-size: 27px;
+  }
+
+  .purchase-note {
+    max-width: 280px;
   }
 }
 
@@ -1352,5 +1591,13 @@ main {
 
   .feature-content h3 {
     font-size: 25px;
+  }
+
+  .hero-buy {
+    font-size: 14px;
+  }
+
+  .cta h2 {
+    font-size: 46px;
   }
 }

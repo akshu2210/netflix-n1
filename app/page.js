@@ -29,7 +29,7 @@ const features = [
 const specs = [
   ["DISPLAY", '16" OLED / 240Hz'],
   ["PROCESSOR", "Intel Core Ultra 9"],
-  ["GRAPHICS", "NVIDIA RTX"],
+  ["GRAPHICS", "NVIDIA RTX 5070"],
   ["MEMORY", "32GB DDR5"],
   ["STORAGE", "2TB SSD"],
   ["BATTERY", "Up to 12 hours"],
@@ -68,7 +68,6 @@ export default function Home() {
       setActive(currentSection);
     };
 
-    // Run once when page loads
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, {
@@ -91,7 +90,6 @@ export default function Home() {
 
     if (!section) return;
 
-    // Immediately move the red active line
     if (
       id === "performance" ||
       id === "features" ||
@@ -205,6 +203,15 @@ export default function Home() {
         className="hero section"
       >
         <div className="hero-content">
+
+          {/* PRODUCT LABEL */}
+
+          <div className="product-label">
+            NETFLIX N-1 / GAMING LAPTOP
+          </div>
+
+          {/* HERO TITLE */}
+
           <h1>
             Don&apos;t
             <br />
@@ -215,11 +222,30 @@ export default function Home() {
             Play.
           </h1>
 
+          {/* HERO DESCRIPTION */}
+
           <p>
             Meet N-1. A cinematic gaming laptop engineered
             for players who want every frame to feel like a
             premiere.
           </p>
+
+          {/* PRODUCT PRICE + BUY BUTTON */}
+
+          <div className="hero-purchase">
+            <div className="hero-price">
+              <span>Starting at</span>
+              <strong>₹1,29,999</strong>
+            </div>
+
+            <button
+              type="button"
+              className="hero-buy"
+              onClick={() => scrollToSection("cta")}
+            >
+              BUY N-1 <span>→</span>
+            </button>
+          </div>
         </div>
 
         {/* LAPTOP */}
@@ -270,8 +296,8 @@ export default function Home() {
 
           <Stat
             number="02"
-            value="RTX"
-            title="NEXT-GEN"
+            value="RTX 5070"
+            title="NEXT-GEN GRAPHICS"
           />
 
           <Stat
@@ -385,7 +411,7 @@ export default function Home() {
       </section>
 
       {/* =========================
-          CTA
+          CTA / PURCHASE
       ========================= */}
 
       <section
@@ -393,6 +419,11 @@ export default function Home() {
         className="cta section"
       >
         <div className="cta-inner">
+
+          <div className="eyebrow cta-eyebrow">
+            NETFLIX N-1
+          </div>
+
           <h2>
             Ready to
             <br />
@@ -404,14 +435,27 @@ export default function Home() {
             Netflix N-1.
           </p>
 
+          {/* PRICE */}
+
+          <div className="cta-price">
+            <span>Starting at</span>
+            <strong>₹1,29,999</strong>
+          </div>
+
+          {/* PURCHASE BUTTON */}
+
           <button
             type="button"
             className="main-cta"
             onClick={() => scrollToSection("performance")}
           >
-            Get N-1
+            BUY N-1
             <span>→</span>
           </button>
+
+          <div className="purchase-note">
+            Free delivery · 1-year warranty · Secure checkout
+          </div>
         </div>
       </section>
 
@@ -419,7 +463,10 @@ export default function Home() {
           FLOATING N
       ========================= */}
 
-      <div className="floating-n">
+      <div
+        className="floating-n"
+        onClick={backToTop}
+      >
         <span>N</span>
       </div>
 
